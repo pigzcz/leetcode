@@ -126,7 +126,7 @@ public class Question714 {
 //        System.out.println(i1);
 
         int b[] = new int[]{1,3,2,7,6,10};
-        leecode.Question714 question714 = new leecode.Question714();
+        Question714 question714 = new Question714();
         int i = question714.maxProfit(b, 2);
         int i1 = question714.maxProfit2(b, 2);
         System.out.println(i+"  "+i1);

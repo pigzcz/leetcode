@@ -41,7 +41,7 @@ public class Q72 {
     }
 
     public static void main(String[] args) {
-        leecode.Q72 q72 = new leecode.Q72();
+        Q72 q72 = new Q72();
         int i = q72.minDistance("horse", "ros");
         System.out.println(i);
 

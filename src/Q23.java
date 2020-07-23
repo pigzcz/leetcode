@@ -76,7 +76,7 @@ public class Q23 {
     }
 
     public static void main(String[] args) {
-          leecode.Q23 q23 = new leecode.Q23();
+          Q23 q23 = new Q23();
         ListNode listNode = q23.new ListNode(1);
         ListNode l2 = q23.new ListNode(4);
         listNode.next = l2;

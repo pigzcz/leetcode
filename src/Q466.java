@@ -137,7 +137,7 @@ public class Q466 {
         return couts2/n2;
     }
     public static void main(String[] args) {
-        leecode.Q466 q466 = new leecode.Q466();
+        Q466 q466 = new Q466();
         String s1 = "bacaba";
         String s2 = "abacab";
         boolean can = q466.can(s1, s2);

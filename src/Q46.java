@@ -38,7 +38,7 @@ public class Q46 {
 
     public static void main(String[] args) {
         int[] x= new int[]{1,2,3};
-        leecode.Q46 q46 = new leecode.Q46();
+        Q46 q46 = new Q46();
         List<List<Integer>> permute = q46.permute(x);
         System.out.println(permute);
     }

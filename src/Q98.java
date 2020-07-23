@@ -68,7 +68,7 @@ public class Q98 {
         TreeNode root = new TreeNode(1);
         TreeNode left = new TreeNode(1);
         root.left = left;
-        leecode.Q98 q98 = new leecode.Q98();
+        Q98 q98 = new Q98();
         q98.isValidBST1(root);
     }
 }

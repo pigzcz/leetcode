@@ -32,7 +32,7 @@ public class Question58 {
 
     public static void main(String[] args) {
         String s = "Hello world";
-        leecode.Question58 question58 = new leecode.Question58();
+        Question58 question58 = new Question58();
         int i = question58.lengthOfLastWord(s);
         System.out.println(i);
     }

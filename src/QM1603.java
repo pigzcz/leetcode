@@ -222,7 +222,7 @@ public class QM1603 {
     }
 
     public static void main(String[] args) {
-        leecode.QM1603 qm1603 = new leecode.QM1603();
+        QM1603 qm1603 = new QM1603();
         int[] start = new int[]{-28,63};
         int[] end = new int[]{-35,20};
 

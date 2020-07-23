@@ -53,7 +53,7 @@ public class QM51 {
     }
 
     public static void main(String[] args) {
-        leecode.QM51 qm51 = new leecode.QM51();
+        QM51 qm51 = new QM51();
         int[] x = new int[]{7,5,6,4};
         int i = qm51.reversePairs(x);
         System.out.println(i);

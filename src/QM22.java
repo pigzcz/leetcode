@@ -82,7 +82,7 @@ public class QM22 {
     }
 
     public static void main(String[] args) {
-        leecode.QM22 qm22 = new leecode.QM22();
+        QM22 qm22 = new QM22();
         List<String> strings = qm22.generateParenthesis(3);
         System.out.println(strings);
     }

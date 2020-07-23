@@ -38,7 +38,7 @@ public class QM62 {
     }
 
     public static void main(String[] args) {
-        leecode.QM62 qm62 = new leecode.QM62();
+        QM62 qm62 = new QM62();
         int i = qm62.lastRemaining(10, 17);
         System.out.println(i);
         String x="学java";

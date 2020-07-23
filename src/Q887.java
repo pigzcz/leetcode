@@ -81,7 +81,7 @@ public class Q887 {
     }
 
     public static void main(String[] args) {
-        leecode.Q887 q887 = new leecode.Q887();
+        Q887 q887 = new Q887();
         int i = q887.superEggDrop(6, 5000);
         System.out.println(i);
 

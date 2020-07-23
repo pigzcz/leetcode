@@ -59,7 +59,7 @@ public class Q33 {
     }
 
     public static void main(String[] args) {
-        leecode.Q33 q33 = new leecode.Q33();
+        Q33 q33 = new Q33();
         int[] x = new int[]{4,5,6,7,0,1,2};
         int search = q33.search(x, 0);
         System.out.println(search);

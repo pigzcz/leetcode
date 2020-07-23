@@ -44,7 +44,7 @@ public class Q45 {
 
 
     public static void main(String[] args) {
-        leecode.Q45 q45 = new leecode.Q45();
+        Q45 q45 = new Q45();
         int[] x= new int[]{2,3,1,1,4};
         int jump = q45.jump1(x);
         System.out.println(jump);

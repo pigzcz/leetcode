@@ -81,7 +81,7 @@ public class Q8 {
 
     public static void main(String[] args) {
         String a="   -42";
-        leecode.Q8 q8 = new leecode.Q8();
+        Q8 q8 = new Q8();
         int i = q8.myAtoi(a);
         System.out.println(i);
         int k = Integer.MIN_VALUE;
