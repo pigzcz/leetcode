@@ -7,6 +7,6 @@ lib
 .idea
 *.iml
 .DS_Store
-.class
+*.class
 bin
 

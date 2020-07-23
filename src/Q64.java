@@ -20,6 +20,10 @@
  */
 public class Q64 {
     private int[][]S;
+
+    //设到达的grid[m][n]的最短距离为S[m][n]，由于只能从grid[m-1][n],grid[m][n-1]点到达grid[m][n]
+    //所以S[m][n] = min(S[m-1][n]+grid[m][n],S[m][n-1]+grid[m][n])
+    //注意临界值的处理
     public int minPathSum(int[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
