@@ -3,7 +3,7 @@
  * @Date: 2019-08-24 16:04
  * @Description:
  */
-public class Question58 {
+public class Q58 {
     //给定一个仅包含大小写字母和空格 ' ' 的字符串，返回其最后一个单词的长度。
     //
     //如果不存在最后一个单词，请返回 0 。
@@ -32,7 +32,7 @@ public class Question58 {
 
     public static void main(String[] args) {
         String s = "Hello world";
-        Question58 question58 = new Question58();
+        Q58 question58 = new Q58();
         int i = question58.lengthOfLastWord(s);
         System.out.println(i);
     }

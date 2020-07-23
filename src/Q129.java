@@ -3,7 +3,7 @@
  * @Date: 2019-08-24 15:38
  * @Description:
  */
-public class Question129 {
+public class Q129 {
     public class TreeNode {
         int val;
         TreeNode left;
