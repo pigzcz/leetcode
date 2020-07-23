@@ -39,7 +39,7 @@ public class Q3 {
     }
 
     public static void main(String[] args) {
-        leecode.Q3 q3 = new leecode.Q3();
+        Q3 q3 = new Q3();
         int abcabcbb = q3.lengthOfLongestSubstring("tmmzuxt");
         System.out.println(abcabcbb);
     }
