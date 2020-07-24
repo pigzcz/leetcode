@@ -32,4 +32,13 @@
  *
  */
 public class Q1025 {
+    public boolean divisorGame(int N) {
+        return N%2 ==0;
+    }
+
+    public static void main(String[] args) {
+        Q1025 q1025 = new Q1025();
+        boolean b = q1025.divisorGame(4);
+        System.out.println(b);
+    }
 }
