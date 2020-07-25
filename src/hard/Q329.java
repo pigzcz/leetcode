@@ -51,7 +51,9 @@ import java.util.List;
  * [64,66,20,66, 9, 48,15]]
  */
 public class Q329 {
+    int[][] tmp = null;
     public int longestIncreasingPath(int[][] matrix) {
+        tmp = matrix;
         if (matrix.length==0 || matrix[0].length==0){
             return 0;
         }
@@ -59,7 +61,9 @@ public class Q329 {
         int[][] memory = new int[matrix.length][matrix[0].length];
         for (int i=0;i<matrix.length;i++){
             for (int j =0;j<matrix[0].length;j++){
-                max = Math.max(getOnePointLongest(matrix,i,j,memory),max);
+                if(memory[i][j]==0){
+                    max = Math.max(getOnePointLongest(matrix,i,j,memory),max);
+                }
             }
         }
         return max;
@@ -86,18 +90,18 @@ public class Q329 {
                     if (newX>=0 && newX<xLength && newY>=0 && newY<yLength){
 
                         if (matrix[newX][newY]>matrix[nowX][nowY]){
-                            if (memory[newX][newY] != 0){
-                                memory[nowX][nowY] = Math.max(memory[newX][newY]+1,memory[nowX][nowY]);
-                                Node tmpNode = node;
-                                while (tmpNode.getLast()!=null){
-                                    Node lastNode = tmpNode.getLast();
-                                    int lastX = lastNode.getX();
-                                    int lastY = lastNode.getY();
-                                    memory[lastX][lastY] = Math.max(memory[lastX][lastY],memory[tmpNode.getX()][tmpNode.getY()]+1);
-                                    tmpNode = lastNode;
-                                }
-                                continue;
-                            }
+//                            if (memory[newX][newY] != 0){
+//                                memory[nowX][nowY] = Math.max(memory[newX][newY]+1,memory[nowX][nowY]);
+//                                Node tmpNode = node;
+//                                while (tmpNode.getLast()!=null){
+//                                    Node lastNode = tmpNode.getLast();
+//                                    int lastX = lastNode.getX();
+//                                    int lastY = lastNode.getY();
+//                                    memory[lastX][lastY] = Math.max(memory[lastX][lastY],memory[tmpNode.getX()][tmpNode.getY()]+1);
+//                                    tmpNode = lastNode;
+//                                }
+//                                continue;
+//                            }
                             Node newNode = new Node(newX,newY);
                             newNode.setLast(node);
                             tmpNodes.add(newNode);
@@ -130,7 +134,9 @@ public class Q329 {
     }
 
     public static void main(String[] args) {
-        int[][] ma = new int[][]{{6,64,94,3,37,67,35},{91,48,44,18,82,67,44},{19,63,38,36,84,18,5},{87,41,11,32,26,6,60},{68,9,99,70,29,66,94},{59,36,8,31,22,18,51},{64,66,20,66,9,48,15}};
+        String x = "[[0,1,2,3,4,5,6,7,8,9],[19,18,17,16,15,14,13,12,11,10],[20,21,22,23,24,25,26,27,28,29],[39,38,37,36,35,34,33,32,31,30],[40,41,42,43,44,45,46,47,48,49],[59,58,57,56,55,54,53,52,51,50],[60,61,62,63,64,65,66,67,68,69],[79,78,77,76,75,74,73,72,71,70],[80,81,82,83,84,85,86,87,88,89],[99,98,97,96,95,94,93,92,91,90],[100,101,102,103,104,105,106,107,108,109],[119,118,117,116,115,114,113,112,111,110],[120,121,122,123,124,125,126,127,128,129],[139,138,137,136,135,134,133,132,131,130],[0,0,0,0,0,0,0,0,0,0]]";
+        System.out.println(x.replace("[","{").replace("]","}"));
+        int[][] ma = new int[][]{{0,1,2,3,4,5,6,7,8,9},{19,18,17,16,15,14,13,12,11,10},{20,21,22,23,24,25,26,27,28,29},{39,38,37,36,35,34,33,32,31,30},{40,41,42,43,44,45,46,47,48,49},{59,58,57,56,55,54,53,52,51,50},{60,61,62,63,64,65,66,67,68,69},{79,78,77,76,75,74,73,72,71,70},{80,81,82,83,84,85,86,87,88,89},{99,98,97,96,95,94,93,92,91,90},{100,101,102,103,104,105,106,107,108,109},{119,118,117,116,115,114,113,112,111,110},{120,121,122,123,124,125,126,127,128,129},{139,138,137,136,135,134,133,132,131,130},{0,0,0,0,0,0,0,0,0,0}};
         Q329 q329 = new Q329();
         int i = q329.longestIncreasingPath(ma);
         System.out.println(i);
@@ -138,10 +144,12 @@ public class Q329 {
     class Node{
         int[] coordinate = new int[2];
         Node last;
+        int value;
 
         public Node(int x, int y) {
             this.coordinate[0] = x;
             this.coordinate[1] = y;
+            value = tmp[x][y];
         }
 
         public int getX(){
