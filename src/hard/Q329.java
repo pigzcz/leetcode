@@ -51,86 +51,67 @@ import java.util.List;
  * [64,66,20,66, 9, 48,15]]
  */
 public class Q329 {
-    int[][] tmp = null;
+
     public int longestIncreasingPath(int[][] matrix) {
-        tmp = matrix;
-        if (matrix.length==0 || matrix[0].length==0){
+        if (matrix.length==0||matrix[0].length==0){
             return 0;
-        }
-        int max = 0;
-        int[][] memory = new int[matrix.length][matrix[0].length];
-        for (int i=0;i<matrix.length;i++){
-            for (int j =0;j<matrix[0].length;j++){
-                if(memory[i][j]==0){
-                    max = Math.max(getOnePointLongest(matrix,i,j,memory),max);
-                }
-            }
-        }
-        return max;
-    }
-    int getOnePointLongest(int[][] matrix, int x, int y, int[][] memory){
-        if (memory[x][y]!=0){
-            return memory[x][y];
         }
         int xLength = matrix.length;
         int yLength = matrix[0].length;
-        int[][] directions = new int[][]{{1,0},{0,1},{-1,0},{0,-1}};
+        int [][] arrive = new int[xLength][yLength];
+        int[][] directions = new int[][]{{0,1},{0,-1},{-1,0},{1,0}};
 
-        List<Node> nodes = new LinkedList<>();
-        nodes.add(new Node(x,y));
-        while (nodes.size() != 0){
-            List<Node> tmpNodes = new LinkedList<>();
-            for (Node node : nodes){
-                int nowX = node.getX();
-                int nowY = node.getY();
+        List<int[]> canArrive = new ArrayList<>(xLength*yLength);
+        for (int x=0;x<xLength;x++){
+            for (int y=0;y<yLength;y++){
+                int c =0;
                 for (int[] direction : directions){
-                    int newX = nowX+direction[0];
-                    int newY = nowY+direction[1];
+                    int newX = x + direction[0];
+                    int newY = y + direction[1];
 
-                    if (newX>=0 && newX<xLength && newY>=0 && newY<yLength){
-
-                        if (matrix[newX][newY]>matrix[nowX][nowY]){
-//                            if (memory[newX][newY] != 0){
-//                                memory[nowX][nowY] = Math.max(memory[newX][newY]+1,memory[nowX][nowY]);
-//                                Node tmpNode = node;
-//                                while (tmpNode.getLast()!=null){
-//                                    Node lastNode = tmpNode.getLast();
-//                                    int lastX = lastNode.getX();
-//                                    int lastY = lastNode.getY();
-//                                    memory[lastX][lastY] = Math.max(memory[lastX][lastY],memory[tmpNode.getX()][tmpNode.getY()]+1);
-//                                    tmpNode = lastNode;
-//                                }
-//                                continue;
-//                            }
-                            Node newNode = new Node(newX,newY);
-                            newNode.setLast(node);
-                            tmpNodes.add(newNode);
+                    if (newX>=0&&newX<xLength && newY>=0&&newY<yLength){
+                        if (matrix[newX][newY]<matrix[x][y]){
+                            c++;
                         }
                     }
                 }
-
-            }
-            if (tmpNodes.size() != 0){
-                nodes = tmpNodes;
-            } else {
-                for (Node node : nodes){
-                    int c = 1;
-                    memory[node.getX()][node.getY()] = Math.max(c,memory[node.getX()][node.getY()]);
-
-                    while (node.getLast()!=null){
-                        if (c<memory[node.getX()][node.getY()]){
-                            c = memory[node.getX()][node.getY()];
-                        }
-                        c++;
-                        node = node.getLast();
-                        memory[node.getX()][node.getY()] = Math.max(c,memory[node.getX()][node.getY()]);
-                    }
+                if (c==0){
+                    arrive[x][y] = 1;
+                    canArrive.add(new int[]{x,y});
                 }
-                nodes = tmpNodes;
             }
         }
 
-        return memory[x][y];
+        boolean find =true;
+        int c = 1;
+        while (find){
+            int findCount = 0;
+            List<int[]> tmpFind = new ArrayList<>(xLength*yLength);
+            for (int[] coordinate : canArrive){
+                int x = coordinate[0];
+                int y = coordinate[1];
+                for (int[] direction : directions){
+                    int newX = x + direction[0];
+                    int newY = y + direction[1];
+                    if (newX>=0&&newX<xLength && newY>=0&&newY<yLength){
+                        if (matrix[newX][newY]>matrix[x][y]){
+                            if (arrive[newX][newY] != c+1){
+                                arrive[newX][newY] = c+1;
+                                findCount++;
+                                tmpFind.add(new int[]{newX,newY});
+                            }
+                        }
+                    }
+                }
+            }
+            if (findCount == 0){
+                find = false;
+            } else {
+                canArrive = tmpFind;
+                c++;
+            }
+        }
+        return c;
     }
 
     public static void main(String[] args) {
@@ -146,10 +127,10 @@ public class Q329 {
         Node last;
         int value;
 
-        public Node(int x, int y) {
+        public Node(int x, int y, int[][] matrix) {
             this.coordinate[0] = x;
             this.coordinate[1] = y;
-            value = tmp[x][y];
+            value = matrix[x][y];
         }
 
         public int getX(){
