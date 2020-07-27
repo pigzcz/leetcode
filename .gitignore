@@ -9,4 +9,6 @@ lib
 .DS_Store
 *.class
 bin
+out
+
 
