@@ -1,3 +1,5 @@
+package medium;
+
 /**
  *
  *
@@ -23,7 +25,7 @@
  */
 public class Q378 {
     /**
-     * 解法1
+     * 解法1 归并排序
      * @param matrix
      * @param k
      * @return
@@ -74,5 +76,5 @@ public class Q378 {
         return c;
     }
 
-
+    //TODO 二分查找
 }
