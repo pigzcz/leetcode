@@ -22,7 +22,7 @@ package easy;
  *  -10  5
  */
 public class Q108 {
-      public class TreeNode {
+  public class TreeNode {
       int val;
       TreeNode left;
       TreeNode right;
