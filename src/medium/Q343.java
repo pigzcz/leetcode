@@ -28,15 +28,10 @@ public class Q343 {
         if (n==3){
             return 2;
         }
-        if (n==4){
-            return 4;
-        }
         s[2] = 2;
         s[3] = 3;
-        s[4] = 4;
 
-
-        for (int i=5;i<=n;i++){
+        for (int i=4;i<=n;i++){
             int j=2;
             int k = i-j;
             int max =0;
