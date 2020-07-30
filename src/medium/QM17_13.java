@@ -24,8 +24,9 @@ package medium;
  * dictionary中总字符数不超过 150000。
  * 你可以认为dictionary和sentence中只包含小写字母。
  */
+//TODO 没做
 public class QM17_13 {
     public int respace(String[] dictionary, String sentence) {
-
+        return 0;
     }
 }
