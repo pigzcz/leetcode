@@ -23,6 +23,7 @@ public class Q300 {
         if (nums == null || nums.length == 0){
             return 0;
         }
+        int allMax =1;
         int n = nums.length;
         int[] dp = new int[n];
         for(int i=0;i<n;i++){
@@ -36,12 +37,13 @@ public class Q300 {
                 }
             }
             dp[i] = max;
+            allMax = Math.max(max,allMax);
         }
-        return dp[n-1];
+        return allMax;
     }
 
     public static void main(String[] args) {
-        int[] m = new int[]{10,9,2,5,3,7,101,18};
+        int[] m = new int[]{1,3,6,7,9,4,10,5,6};
         Q300 q300 = new Q300();
         int i = q300.lengthOfLIS(m);
         System.out.println(i);
