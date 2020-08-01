@@ -26,17 +26,26 @@ import java.util.List;
  * 对于使用Java的用户，请注意传入类型已修改为List<List<Integer>>。重置代码模板后可以看到这项改动。
  */
 public class Q632 {
+    /**
+     * 用来标记 归并后的数组[start,end]是否涵盖了所有 nums数组的所有index
+     */
     int flag = 0;
     public int[] smallestRange(List<List<Integer>> nums) {
 
         int min = Integer.MAX_VALUE;
         int[] res = null;
+        /**
+         * 如果只有1个，直接返回
+         */
         if(nums.size() == 1){
             Integer integer = nums.get(0).get(0);
             return new int[]{integer,integer};
         }
 
         ArrayList<Node> initList = new ArrayList<>(nums.get(0).size()+nums.get(1).size());
+        /**
+         * 将所有的数组归并成一个
+         */
         guibing(nums.get(0),0,nums.get(1),1,initList);
         if (nums.size()!=2){
             for(int i =2;i<nums.size();i++){
@@ -44,6 +53,20 @@ public class Q632 {
             }
         }
 
+        /**
+         * 用来表示归并后的数组[start,end] nums 数的个数
+         *
+         * [[4,10,15,24,26], [0,9,12,20], [5,18,22,30]]
+         * 归并后[0,4,5,9,10,12,15,18,20,22,24,26,30]
+         * start=0,end=1时
+         * dp数组为[1,1,0]
+         * 因为0是0数组的，4是1数组的
+         * start=0,end=2
+         * dp数组为[1,1,1]
+         * 因为0是0数组，4是1数组5是2数组
+         * 此时flag=3
+         * 表示归并后的数组start到end涵盖 0-2数组的其中数
+         */
         int[] dp = new int[nums.size()];
 
 
@@ -58,18 +81,32 @@ public class Q632 {
             deleteNode(initList.get(start).belongIndex,dp);
             start++;
         }
-
+        /**
+         * 此时找到了第一个 涵盖所有数组的start和end
+         */
         min = initList.get(end-1).value - initList.get(start-1).value;
         res = new int[]{initList.get(start-1).value,initList.get(end-1).value};
 
+        /**
+         * 循环遍历 如果end小于归并数组的size，或者 flag标记等于nums的大小
+         */
         while (end < initList.size() || flag == nums.size()){
+            /**
+             * 如果flag不等于nums的大小，我们需要往后加个end
+             */
             if (flag != nums.size()){
                 addNode(initList.get(end).belongIndex,dp);
                 end++;
                 continue;
             }
+            /**
+             * 如果flag等于nums的小小，我们可以把start减去，然后start++
+             */
             if (flag == nums.size()){
                 int i = initList.get(end-1).value - initList.get(start).value;
+                /**
+                 * 如果小则替换之前的数据
+                 */
                 if (i<min){
                     min = i;
                     res = new int[]{initList.get(start).value,initList.get(end-1).value};
@@ -172,6 +209,9 @@ public class Q632 {
 
     class Node{
         private int value;
+        /**
+         * 用于标记这个值属于哪几个index的数组，用于数值相等使用
+         */
         private LinkedList<Integer> belongIndex;
 
         public Node() {
