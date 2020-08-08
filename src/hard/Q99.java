@@ -1,5 +1,8 @@
 package hard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 99. 恢复二叉搜索树
  * 二叉搜索树中的两个节点被错误地交换。
@@ -60,11 +63,58 @@ public class Q99 {
     }
 
     /**
+     * 中序遍历二叉树，结果存入数组。
+     * 将问题转化为递增数组交换了两个数找出
+     * @param root
+     */
+    public void recoverTree2(TreeNode root) {
+        List<TreeNode> treeNodeList = new ArrayList<>();
+        zhongxu(root,treeNodeList);
+        int[] index = new int[2];
+        int k =0;
+        for (int i =0;i<treeNodeList.size()-1;i++){
+            if(k>1){
+                break;
+            }
+            TreeNode treeNode = treeNodeList.get(i);
+            TreeNode treeNode1 = treeNodeList.get(i + 1);
+            if (treeNode.val>treeNode1.val){
+                index[k] = i;
+                k++;
+            }
+        }
+        int i1 = index[0];
+        int i2 = index[1];
+        if (i2 == 0){
+            TreeNode treeNode = treeNodeList.get(i1);
+            TreeNode treeNode1 = treeNodeList.get(i1 + 1);
+            int tmp = treeNode.val;
+            treeNode.val = treeNode1.val;
+            treeNode1.val = tmp;
+        } else {
+            TreeNode treeNode = treeNodeList.get(i1);
+            TreeNode treeNode1 = treeNodeList.get(i2 + 1);
+            int tmp = treeNode.val;
+            treeNode.val = treeNode1.val;
+            treeNode1.val = tmp;
+        }
+
+    }
+    public void zhongxu(TreeNode root,List<TreeNode> treeNodes){
+        if (root == null){
+            return;
+        }
+        zhongxu(root.left,treeNodes);
+        treeNodes.add(root);
+        zhongxu(root.right,treeNodes);
+    }
+
+    /**
      *                                                                 5
      *                                                              /    \
-     *                                                             7       8
+     *                                                             3       8
      *                                                           /  \     /  \
-     *                                                          2    4   3     12
+     *                                                          2    4   7     12
      *                                                         /        /     /  \
      *                                                        1        6     10  14
      *
