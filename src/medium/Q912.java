@@ -1,3 +1,5 @@
+package medium;
+
 public class Q912 {
 
     public int[] sortArray(int[] nums) {
@@ -15,7 +17,7 @@ public class Q912 {
         return nums;
     }
     public void quickSort(int[] nums,int p,int q){
-        if (p<q){
+        if (p<=q){
             int i = partationSolution(nums, p, q);
             quickSort(nums,p,i-1);
             quickSort(nums,i+1,q);
@@ -49,7 +51,7 @@ public class Q912 {
 
     public static void main(String[] args) {
         Q912 q912 = new Q912();
-        int[] ce = new int[]{3,-1};
+        int[] ce = new int[]{3,9,7,2,5,10,6,8};
         int[] ints = q912.sortArray(ce);
         System.out.println(ints);
     }
