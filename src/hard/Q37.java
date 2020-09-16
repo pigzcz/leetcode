@@ -1,5 +1,10 @@
 package hard;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * @Auther: johnson.zhu
  * @Date: 2020/9/16 20:01
@@ -30,6 +35,91 @@ package hard;
  */
 public class Q37 {
     public void solveSudoku(char[][] board) {
+        Set<Character>[] hasX = new Set[9];
+        Set<Character>[] hasY = new Set[9];
+        Set<Character>[] hasG = new Set[9];
 
+        List<int[]> point = new ArrayList<>();
+        ready(board,hasX,hasY,hasG,point);
+        char[] chars = new char[]{'1','2','3','4','5','6','7','8','9'};
+        for (){
+
+        }
+    }
+
+    private void doSolve(char[][] board,Set<Character>[] hasX, Set<Character>[] hasY, Set<Character>[] hasG, List<int[]> point,int start,int end, char[] chars){
+        if (start == end){
+            throw new RuntimeException("find");
+        }
+        for (int i=start;i<end;i++){
+            int[] sp = point.get(i);
+            int x = sp[0];int y = sp[1];
+            int g = getGIndex(x,y);
+            Set<Character> hasx = hasX[x];
+            if (null == hasx){
+                hasx = new HashSet<>();
+                hasX[x] = hasx;
+            }
+            Set<Character> hasy = hasY[y];
+            if (null == hasy){
+                hasy = new HashSet<>();
+                hasY[y]=hasy;
+            }
+            Set<Character> hasg = hasG[g];
+            if (null == hasg){
+                hasg = new HashSet<>();
+                hasG[g] = hasg;
+            }
+            for (char t : chars){
+                if (hasx.contains(t)||hasg.contains(t)||hasy.contains(t)){
+
+                } else {
+
+                }
+            }
+        }
+    }
+
+    private void ready(char[][] board, Set<Character>[] hasX, Set<Character>[] hasY, Set<Character>[] hasG, List<int[]> point){
+        int x = board.length;
+        int y = board[0].length;
+        for (int i=0;i<x;i++){
+            for (int j=0;j<y;j++){
+                if (board[i][j] == '.'){
+                    point.add(new int[]{i,j});
+                } else {
+                    Set<Character> hasXS = hasX[i];
+                    if (hasXS == null){
+                        hasXS = new HashSet<>();
+                        hasX[i] = hasXS;
+                    }
+                    hasXS.add(board[i][j]);
+
+                    Set<Character> hasYS = hasY[j];
+                    if (hasXS == null){
+                        hasYS = new HashSet<>();
+                        hasY[j] = hasYS;
+                    }
+                    hasYS.add(board[i][j]);
+                    int gIndex = getGIndex(i, j);
+                    Set<Character> hasGS = hasG[gIndex];
+                    if (null == hasGS){
+                        hasGS = new HashSet<>();
+                        hasG[gIndex] = hasGS;
+                    }
+                    hasGS.add(board[i][j]);
+
+                }
+            }
+        }
+    }
+    private int getGIndex(int x, int y){
+        return y/3 * 3 + x/3;
+    }
+
+    public static void main(String[] args) {
+        Q37 q37 = new Q37();
+        int gIndex = q37.getGIndex(6, 6);
+        System.out.println(gIndex);
     }
 }
