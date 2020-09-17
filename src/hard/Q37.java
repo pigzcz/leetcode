@@ -42,16 +42,19 @@ public class Q37 {
         List<int[]> point = new ArrayList<>();
         ready(board,hasX,hasY,hasG,point);
         char[] chars = new char[]{'1','2','3','4','5','6','7','8','9'};
-        for (){
+        try {
+            doSolve(board,hasX,hasY,hasG,point,0,point.size(),chars);
+        } catch (Exception e){
 
         }
+
     }
 
     private void doSolve(char[][] board,Set<Character>[] hasX, Set<Character>[] hasY, Set<Character>[] hasG, List<int[]> point,int start,int end, char[] chars){
         if (start == end){
             throw new RuntimeException("find");
         }
-        for (int i=start;i<end;i++){
+           int i= start;
             int[] sp = point.get(i);
             int x = sp[0];int y = sp[1];
             int g = getGIndex(x,y);
@@ -74,10 +77,18 @@ public class Q37 {
                 if (hasx.contains(t)||hasg.contains(t)||hasy.contains(t)){
 
                 } else {
-
+                    board[x][y]=t;
+                    hasx.add(t);
+                    hasy.add(t);
+                    hasg.add(t);
+                    doSolve(board,hasX,hasY,hasG,point,start+1,end,chars);
+                    board[x][y]='.';
+                    hasx.remove(t);
+                    hasy.remove(t);
+                    hasg.remove(t);
                 }
             }
-        }
+
     }
 
     private void ready(char[][] board, Set<Character>[] hasX, Set<Character>[] hasY, Set<Character>[] hasG, List<int[]> point){
@@ -96,7 +107,7 @@ public class Q37 {
                     hasXS.add(board[i][j]);
 
                     Set<Character> hasYS = hasY[j];
-                    if (hasXS == null){
+                    if (hasYS == null){
                         hasYS = new HashSet<>();
                         hasY[j] = hasYS;
                     }
@@ -118,7 +129,18 @@ public class Q37 {
     }
 
     public static void main(String[] args) {
+
         Q37 q37 = new Q37();
+        String[][] board = new String[][]{{"5","3",".",".","7",".",".",".","."},{"6",".",".","1","9","5",".",".","."},{".","9","8",".",".",".",".","6","."},{"8",".",".",".","6",".",".",".","3"},{"4",".",".","8",".","3",".",".","1"},{"7",".",".",".","2",".",".",".","6"},{".","6",".",".",".",".","2","8","."},{".",".",".","4","1","9",".",".","5"},{".",".",".",".","8",".",".","7","9"}};
+        int x = board.length;int y = board[0].length;
+        char[][] charb = new char[x][y];
+        for (int i =0;i<x;i++){
+            for (int j=0;j<y;j++){
+                charb[i][j] = board[i][j].charAt(0);
+            }
+        }
+
+        q37.solveSudoku(charb);
         int gIndex = q37.getGIndex(6, 6);
         System.out.println(gIndex);
     }
