@@ -36,6 +36,12 @@ public class Q106 {
 
 
     public TreeNode buildTree(int[] inorder, int[] postorder) {
+        if (null == inorder || postorder == null){
+            return null;
+        }
+        if (inorder.length==0 || postorder.length==0){
+            return null;
+        }
         Map<Integer,Integer> inmap = new HashMap<>();
         for (int i=0;i<inorder.length;i++){
             int value = inorder[i];
@@ -43,6 +49,11 @@ public class Q106 {
         }
         TreeNode root = new TreeNode(postorder[postorder.length - 1]);
 
+        int indexInInOrder = findIndexInInOrder(inmap, postorder[postorder.length - 1]);
+        int rightCount = indexInInOrder - postorder.length+1;
+        root.right = buildChild(inorder,postorder,postorder.length-2,postorder.length-1+rightCount,postorder.length-1,inmap);
+        root.left = buildChild(inorder,postorder,postorder.length-2+rightCount,0,indexInInOrder-1,inmap);
+        return root;
     }
 
     public TreeNode buildChild(int[] inoder, int[] postorder,int index, int end,int instart, Map<Integer,Integer> inmap){
@@ -56,11 +67,21 @@ public class Q106 {
         if (rightCount>=0){
             node.right=null;
         } else {
-            node.right = buildChild(inoder,postorder,index-1,index-rightCount,instart,)
+            node.right = buildChild(inoder,postorder,index-1,index+rightCount,instart,inmap);
         }
+        node.left = buildChild(inoder,postorder,index+rightCount-1,end,indexInInOrder-1,inmap);
+        return node;
     }
     public int findIndexInInOrder(Map<Integer,Integer> inorder,int value){
         return inorder.getOrDefault(value,-1);
+    }
+
+    public static void main(String[] args) {
+        int[] ino = new int[]{9,3,15,20,7};
+        int[] pr = new int[]{9,15,7,20,3};
+        Q106 q106 = new Q106();
+        TreeNode treeNode = q106.buildTree(ino, pr);
+        System.out.println(treeNode);
     }
 
 }
