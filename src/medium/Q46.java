@@ -1,3 +1,5 @@
+package medium;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -6,10 +8,25 @@ import java.util.List;
  * @Auther: johnson.zhu
  * @Date: 2020-04-25 08:13
  * @Description:
+ * 46. 全排列
+ * 给定一个 没有重复 数字的序列，返回其所有可能的全排列。
+ *
+ * 示例:
+ *
+ * 输入: [1,2,3]
+ * 输出:
+ * [
+ *   [1,2,3],
+ *   [1,3,2],
+ *   [2,1,3],
+ *   [2,3,1],
+ *   [3,1,2],
+ *   [3,2,1]
+ * ]
  */
 public class Q46 {
 
-    private int length=0;
+
     public List<List<Integer>> permute(int[] nums) {
         if (null == nums||nums.length==0){
             return null;
@@ -41,5 +58,27 @@ public class Q46 {
         Q46 q46 = new Q46();
         List<List<Integer>> permute = q46.permute(x);
         System.out.println(permute);
+    }
+
+    private List<List<Integer>> res = new LinkedList<>();
+
+    public List<List<Integer>> permute2(int[] nums) {
+        LinkedList<Integer> tmp = new LinkedList<>();
+        doPermute(nums,tmp);
+        return res;
+    }
+    public void doPermute(int[] nums,LinkedList<Integer> tmp){
+        if (nums.length == tmp.size()){
+            res.add(new LinkedList<>(tmp));
+            return;
+        }
+        for (int i=0;i<nums.length;i++){
+            if (tmp.contains(nums[i])){
+                continue;
+            }
+            tmp.add(nums[i]);
+            doPermute(nums,tmp);
+            tmp.removeLast();
+        }
     }
 }
