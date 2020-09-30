@@ -40,8 +40,26 @@ package medium;
  *           4
  */
 public class Q701 {
-    public TreeNode insertIntoBST(TreeNode root, int val) {
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int x) { val = x; }
+    }
 
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null){
+            return new TreeNode(val);
+        }
+        if (root.val>val){
+            root.left = insertIntoBST(root.left,val);
+            return root;
+        }
+        if (root.val < val){
+            root.right = insertIntoBST(root.right,val);
+            return root;
+        }
+        return root;
     }
 
 }
