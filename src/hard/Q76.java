@@ -1,9 +1,9 @@
 package hard;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
+
+import java.util.*;
+
 
 /**
  * @author:johnson.zhu
@@ -125,9 +125,74 @@ public class Q76 {
 
     public static void main(String[] args) {
         Q76 q76= new Q76();
-        String s = q76.minWindow("ADOBECODEBANC", "ABC");
+        String s = q76.minWindow2("ADOBECODEBANC", "ABC");
+
+
         System.out.println(s);
     }
 
+    public String minWindow2(String s, String t) {
+        String min = "";
+        Map<Character, Integer> needMap = new HashMap<>();
+        char[] sarry = s.toCharArray();
+        char[] needArray = t.toCharArray();
+        for (Character tmp : needArray) {
+            needMap.put(tmp, needMap.getOrDefault(tmp, 0) + 1);
+        }
+
+
+        Map<Character, Integer> targetMap = new HashMap<>();
+        Set<Character> targetSize = new HashSet<>();
+        StringBuilder target = new StringBuilder();
+        int i =0;
+        int j = 0;
+        while (i<s.length()) {
+            if(j == s.length()) {
+                break;
+            }
+            if(needMap.containsKey(sarry[j])) {
+                int singleTargetSize = targetMap.getOrDefault(sarry[j],0);
+                singleTargetSize ++ ;
+                targetMap.put(sarry[j], singleTargetSize);
+                if(singleTargetSize == needMap.get(sarry[j]) ) {
+                    targetSize.add(sarry[j]);
+                }
+            }
+
+            target.append(sarry[j]);
+            if(targetSize.size() < needMap.size()) {
+                j ++ ;
+            }
+
+            while(targetSize.size() == needMap.size()) {
+
+                if(min.equals("") || min.length() > target.length() -i - 1) {
+                    min = target.substring(i, target.length());
+                }
+                if(needMap.containsKey(sarry[i])) {
+                    int tmpSize = targetMap.get(sarry[i]) -1;
+                    if(tmpSize < needMap.get(sarry[i])) {
+                        targetSize.remove(sarry[i]);
+                        j++;
+                    }
+                    targetMap.put(sarry[i], tmpSize);
+                }
+
+                i++;
+
+            }
+        }
+        return min;
+    }
+
+    private boolean contains(Map<Character, Integer> needMap, Map<Character, Integer> targetMap) {
+        for (Map.Entry<Character, Integer> entry : needMap.entrySet()) {
+            Integer target = targetMap.get(entry.getKey());
+            if (target == null || target.intValue() < entry.getValue()) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
