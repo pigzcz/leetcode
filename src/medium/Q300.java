@@ -42,10 +42,37 @@ public class Q300 {
         return allMax;
     }
 
+    public int lengthOfLIS2(int[] nums) {
+        if(null == nums) {
+            return 0;
+        }
+        if(nums.length==1) {
+            return 1;
+        }
+        int[] dp = new int[nums.length];
+        for(int i=0;i<nums.length;i++) {
+            dp[i]=1;
+        }
+        int allMax = 1;
+        for(int i=1;i<nums.length;i++) {
+            int max = 1;
+            for(int j=0;j<i;j++) {
+                if(nums[i] > nums[j] ) {
+                    max = Math.max(dp[j] + 1, max);
+                    dp[i] = max;
+                    allMax = Math.max(max, allMax);
+                }
+            }
+        }
+        return allMax;
+    }
     public static void main(String[] args) {
         int[] m = new int[]{1,3,6,7,9,4,10,5,6};
         Q300 q300 = new Q300();
         int i = q300.lengthOfLIS(m);
+
+        int[] m1 = new int[]{10,9,2,5,3,7,101,18};
+        int i1 = q300.lengthOfLIS2(m1);
         System.out.println(i);
     }
 }

@@ -97,5 +97,38 @@ public class Q236 {
         Q236 q236 = new Q236();
         TreeNode treeNode = q236.lowestCommonAncestor(root, l1, l1r1r1);
         System.out.println(true);
+
+        TreeNode treeNode1 = q236.lowestCommonAncestor2(root, l1, r1);
+        System.out.println(treeNode1);
     }
+
+
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        Map<TreeNode,  List<TreeNode>> map = new HashMap();
+        List<TreeNode> tmpList = new ArrayList<>();
+        bianli(root, tmpList, map);
+        List<TreeNode> pp = map.get(p);
+        List<TreeNode> qp = map.get(q);
+        Set<TreeNode> pps = new HashSet<>(pp);
+        for (int i=qp.size()-1;i>=0;i--) {
+            if(pps.contains(qp.get(i))) {
+                return qp.get(i);
+            }
+        }
+
+        return null;
+    }
+
+    private void bianli(TreeNode root, List<TreeNode> parent, Map<TreeNode, List<TreeNode>> map) {
+        if(null == root) {
+            return;
+        }
+        parent.add(root);
+        map.put(root, new ArrayList<>(parent));
+        bianli(root.left, parent, map);
+        int index = parent.indexOf(root);
+        parent = new ArrayList(parent.subList(0,index+1));
+        bianli(root.right, parent, map);
+    }
+
 }
